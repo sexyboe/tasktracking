@@ -1,0 +1,539 @@
+body {
+    /* overflow: hidden; */
+}
+
+/* pop over */
+
+/* pop over */
+.whole {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.menu {
+    display: none;
+}
+.lists {
+    display: none;
+}
+
+.logo {
+    padding-left: 20px;
+    width: 100%;
+}
+
+.logo img {
+    height: 20px;
+    width: 20px;
+}
+
+.left-section {
+    position: relative;
+    width: 19%;
+    background-color: rgba(244, 237, 237, 0.114);
+    box-shadow: 10px 0px 10px rgb(227, 227, 227);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.light-text {
+    color: rgb(137, 132, 132);
+    font-weight: 400;
+    position: relative;
+    left: 12px;
+    font-style: bold;
+}
+
+.tools-c {
+    padding-left: 15px;
+}
+.tools:hover {
+    border-radius: 15px;
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: rgba(209, 206, 206, 0.345);
+}
+
+.tools {
+    align-items: center;
+    padding: 10px 30px 10px 18px;
+}
+.tools a {
+    text-decoration: none;
+    color: black;
+    align-items: center;
+}
+
+.tools ion-icon {
+    margin-top: 4px;
+    font-size: 25px;
+}
+
+.toggle {
+    position: absolute;
+    right: -10px;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    box-shadow: 1px 0px 6px rgb(171, 169, 169);
+    text-align: center;
+    background-color: white;
+    padding-top: 2px;
+    cursor: pointer;
+}
+
+/* //right */
+.right-section {
+    width: 81%;
+    height: 100vh;
+    background-color: rgba(244, 237, 237, 0.114);
+}
+
+.right-container {
+    width: 100%;
+}
+
+.top-right {
+    display: flex;
+    column-gap: 20px;
+    font-size: 1.6rem;
+}
+
+.top {
+    display: flex;
+    padding: 30px 40px;
+    justify-content: space-between;
+}
+
+.top span {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+/* toglr */
+.collapsed {
+    width: 8% !important;
+}
+
+.collaspedright {
+    width: 92%;
+}
+
+/* toglr */
+
+.top {
+    width: 100%;
+    height: auto;
+}
+
+.top-right {
+    display: flex;
+    column-gap: 20px;
+    color: aliceblue;
+    font-size: 1.9rem;
+}
+
+.top-right a ion-icon {
+    font-size: 1.8rem;
+    color: rgb(118, 121, 123);
+}
+
+.top-right ion-icon:hover {
+    color: green;
+}
+
+/* /weeks */
+
+.weeks {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+}
+
+/* /weeks */
+
+/* medai querry */
+
+.days {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.p {
+    padding: 5px;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: rgb(67, 212, 142);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    left: 0;
+    top: 30px;
+    z-index: 1;
+}
+
+.sides:hover .tooltiptext {
+    visibility: visible;
+}
+
+.right-container {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    width: 100%;
+}
+
+.weeks {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.arrows {
+    padding-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    /* align-items: center; */
+
+    gap: 20px;
+}
+
+.arrows span {
+    margin-top: 3px;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.arrows .ico {
+    width: 150px;
+    border-radius: 10px;
+    border: 1px solid rgb(166, 160, 160);
+    display: flex;
+    height: 40px;
+    align-items: center;
+}
+
+.ico .sides {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.ico .middle {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid rgb(130, 126, 126);
+    border-right: 1px solid rgb(130, 126, 126);
+}
+
+.callender {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    height: 30px;
+    background-color: rgb(214, 197, 176);
+}
+/* /working/ */
+
+.work {
+    padding: 0 15px;
+}
+.working {
+    width: 100%;
+    height: 90px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 128, 0, 0.514);
+    box-shadow: rgba(30, 232, 121, 0.438) 0px 2px 5px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.form {
+    height: 70%;
+    width: 400px;
+    padding-left: 15px;
+}
+
+.form input[type="text"] {
+    width: 70%;
+    height: 100%;
+    outline: none;
+    border: none;
+    border: 0.2px solid rgba(196, 195, 195, 0);
+    caret-color: transparent;
+}
+
+.form input[type="text"]:hover {
+    transition: ease-out;
+    border: 0.2px solid rgba(196, 195, 195, 0.772);
+    border-radius: 10px;
+}
+.form ::placeholder {
+    padding-left: 10px;
+}
+/* button */
+.start-button {
+    margin-right: 10px;
+    background-color: rgb(75, 176, 99);
+    color: white;
+    padding: 8px 19px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: none;
+    gap: 10px;
+    transition: all 0.2s;
+}
+.start-button span {
+    font-size: 1.1rem;
+    font-weight: 470;
+}
+/* button */
+
+/* medai querry */
+
+@media (max-width: 1051px) {
+    .none {
+        display: none;
+    }
+
+    .whole {
+        justify-content: center;
+    }
+
+    .left-section {
+        width: 10%;
+    }
+    .right-section {
+        width: 90%;
+    }
+
+    .tools ion-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .toggle {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .tools-c {
+        display: none !important;
+    }
+
+    .menu {
+        display: block;
+        position: absolute;
+        right: 40px;
+        top: 20px;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    .list {
+        display: block;
+    }
+}
+@media (max-width: 692px) {
+    .left-container {
+        justify-content: center;
+    }
+    .logo {
+        width: 15% !important;
+        background-color: aquamarine;
+        align-items: center;
+        padding-right: 10px;
+    }
+    .logo img {
+        width: 30%;
+    }
+    .tools-c {
+        width: 85% !important;
+        background-color: aquamarine;
+        justify-content: space-around !important;
+        column-gap: 0;
+        flex-wrap: wrap;
+    }
+
+    .analyze {
+        padding: 0;
+    }
+    .analyze:first-child {
+        position: relative;
+        left: 90px;
+    }
+    .analyze:nth-child(2) {
+        position: relative;
+        left: 50px;
+    }
+}
+
+@media (max-width: 765px) {
+    .start-button {
+        width: 150px;
+        padding: 7px 5px;
+        justify-content: center;
+        margin-right: 10px !important;
+    }
+    .start-button span {
+        font-size: 14px;
+    }
+
+    .form input[type="text"]::placeholder {
+        font-size: 12px;
+    }
+    .form {
+        width: 70%;
+        /* background-color: rgb(227, 231, 231); */
+    }
+
+    .light-text {
+        display: none;
+    }
+    .whole {
+        flex-direction: column;
+    }
+    .right-section {
+        width: 100%;
+    }
+    .left-section {
+        width: 100%;
+        flex-direction: row;
+    }
+    .logo {
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+    }
+    .logo img {
+        width: 45px;
+        height: 45px;
+    }
+    .tools ion-icon {
+        width: 20px;
+    }
+
+    .tools-c {
+        display: flex;
+        width: 60%;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-evenly;
+        padding: 0%;
+    }
+
+    .analyze {
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+/* modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#closeModalBtn {
+    background-color: red;
+}
+.modal-content span {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-content span button {
+    display: block;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    background-color: #46e561;
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    width: 40%;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+}
+
+.logout {
+    display: flex;
+
+    justify-content: center;
+
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    background-color: #46e561;
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    width: 40%;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+}
+
+.logout button {
+    position: relative;
+    right: 10px;
+
+    border: none;
+}
+
+/* modal */
