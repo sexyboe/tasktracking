@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse; // Make sure to add this import
-
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +19,7 @@ class LoginController extends Controller
     }
 
     // Handle the login form submission
+
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -29,13 +30,12 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-
             return redirect()->intended('/dashboard')->with('success', 'You have been successfully logged in.');
+        } else {
+            Session::flash('old_email', $request->input('email'));
+            return redirect()->back()->withInput()->withErrors(['error' => 'Invalid credentials. Please try again.']);
         }
-
-        return back()->withErrors('Invalid credentials.');
     }
-
 
     // Handle user logout
     public function logout(Request $request)

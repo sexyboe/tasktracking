@@ -340,6 +340,18 @@ body {
     .toggle {
         display: none;
     }
+
+    .projects .card {
+        flex: 1 1 300;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .card .create {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+    }
 }
 
 @media (max-width: 600px) {

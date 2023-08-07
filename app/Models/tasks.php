@@ -15,6 +15,8 @@ class tasks extends Model
         'project_id',
         'taskname',
         'description',
+        'start_time',
+        'end_time',
         // ... other fillable fields
     ];
 

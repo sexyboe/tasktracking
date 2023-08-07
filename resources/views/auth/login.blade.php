@@ -98,7 +98,7 @@
             @csrf
             <p class="form-title">Sign in to your account</p>
             <div class="input-container">
-                <input type="email" name="email" placeholder="Enter email">
+                <input type="email" name="email" placeholder="Enter email" value="{{ old('email') }}">
                 <span>
                 </span>
             </div>

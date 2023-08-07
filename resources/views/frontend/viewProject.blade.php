@@ -31,25 +31,62 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
 
             <div class="tasks">
 
-                {{ $remainingTime->format('%d days, %h hours, %i minutes') }}</p>
 
                 <div class="projects">
                     <div class="card">
 
-                        <span>{{ $projects->projectName }}</span>
-                        <p class="info">{{ $projects->descriptions }}</p>
+                        <div class="card_left card-section">
 
-                        <div class="times">
-                            <span> {{ $projects->created_at }}</span>
+                            <p class="info"> <span>Project :</span>{{ $projects->projectName }}</p>
+                            <p class="info"> <span>Due Date :</span>{{ $projects->descriptions }}</p>
+                            <p class="info"> <span>Status :</span> {{ $projects->status }}</p>
+
 
                         </div>
+                        <div class="card_right card-section">
 
+
+                            <p class="info"> <span>Started At :</span>{{ $projects->created_at->format('Y-m-d') }}
+                            </p>
+                            <p class="info">
+                                <span>Due Date :</span> {{ \Carbon\Carbon::parse($projects->dueDate)->toDateString() }}
+                            </p>
+                            <p class='info'>
+                                <span>Time Remaining :</span><span id="countdown" class="info"></span>
+                            </p>
+                        </div>
+
+                        <div class="card-section">
+
+
+
+                            @php
+                                $totalTasks = App\Models\tasks::where('project_id', $projects->id)->count();
+                            @endphp
+                            <p class="info"> <span>Total Task :</span>{{ $totalTasks }}</p>
+
+
+                            <button onclick="openModal()">Create new Task</button>
+
+                        </div>
                     </div>
+
                 </div>
+
+
                 <div id="projectModal" class="modal-container">
                     <!-- Modal content -->
                     <div class="modal-content1">
@@ -60,7 +97,7 @@
                                 <p class="form-title">Add Task</p>
                                 <div class="input-container">
                                     <label for="taskName"> Task Name</label>
-                                    <input type="text" name="taskname" placeholder="Enter your Task">
+                                    <input type="text" name="taskname" placeholder="Enter your Task" value="{{old('taskname')}}">
                                 </div>
                                 <div class="input-container">
                                     <input type="hidden" name="user_id" value="{{ auth()->id() }}">
@@ -81,13 +118,7 @@
 
                 </div>
 
-                <div class="add-task">
-                    <div class="create">
-                        <button onclick="openModal()" class="open">Create new Task</button>
-                    </div>
 
-
-                </div>
                 <div class="tasks-list">
 
                     <table>
@@ -153,8 +184,34 @@
         </div>
 
         <style>
-            .tasks {
+            .card-section button:hover {
+                background-color: #9CCD62;
+                box-shadow: 4px 2px 5px rgb(89, 87, 87)
+            }
 
+
+            .card-section button {
+                background-color: #F6F8E2;
+                box-shadow: 4px 2px 5px rgb(0, 0, 0);
+                color: #3C3D42;
+                outline: none;
+                border: none;
+                display: block;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                font-weight: 500;
+
+                border-radius: 0.5rem;
+
+            }
+
+
+            .tasks {
                 width: 100%;
                 height: 100%;
                 display: flex;
@@ -181,7 +238,14 @@
                 border-top-right-radius: 20px;
                 border-bottom-left-radius: 20px;
                 display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+            }
+
+            .card-section {
+                display: flex;
                 flex-direction: column;
+                justify-content: center;
             }
 
             .card span {
@@ -397,5 +461,41 @@
                 var modal = document.getElementById('projectModal');
                 modal.style.display = 'none';
             }
+
+
+            function updateCountdown(targetDate) {
+                var now = new Date().getTime();
+                var target = new Date(targetDate).getTime();
+                var timeRemaining = target - now;
+
+                var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown").innerHTML = days + " days, " + hours + " hours, " + minutes +
+                    " minutes, " + seconds + " seconds";
+
+                if (timeRemaining <= 0) {
+                    document.getElementById("countdown").innerHTML = "Expired";
+                }
+            }
+
+            function startCountdown() {
+                // Replace 'YYYY-MM-DD HH:mm:ss' with your actual target date and time
+                // For example: updateCountdown('2023-08-31 23:59:59');
+                var targetDate = '{{ $projects->dueDate }}';
+
+                // Update the countdown immediately
+                updateCountdown(targetDate);
+
+                // Update the countdown every second
+                setInterval(function() {
+                    updateCountdown(targetDate);
+                }, 1000);
+            }
+
+            // Start the countdown when the page loads
+            startCountdown();
         </script>
     @endsection

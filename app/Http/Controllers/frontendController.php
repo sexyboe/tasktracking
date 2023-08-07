@@ -47,7 +47,7 @@ class frontendController extends Controller
 
         $tasks = tasks::where('user_id', $user_id)
             ->when($search, function ($query) use ($search) {
-                $query->where('projectName', 'like', '%' . $search . '%');
+                $query->where('taskname', 'like', '%' . $search . '%');
             })
             ->paginate(5);
         return view('frontend.tasks', compact('tasks', 'search'));

@@ -6,6 +6,7 @@ use App\Http\Controllers\frontendController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,10 @@ Route::middleware('custom_auth')->group(function () {
     Route::post('/createTask1', [ProjectController::class, 'createTask1'])->name('createTask1');
     Route::post('/createTask', [ProjectController::class, 'createTask'])->name('createTask');
     Route::get('/vprojects/{project_id}', [ProjectController::class, 'viewProject'])->name('vprojects');
+    Route::post('/start-timer/{taskId}', 'TimerController@startTimer');
 
+    Route::post('/start-timer/{taskId}', [TasksController::class, 'startTimer'])->name('startTime');
+    Route::post('/stop-timer/{taskId}', [TasksController::class, 'stopTimer'])->name('stopTime');
 });
 
 

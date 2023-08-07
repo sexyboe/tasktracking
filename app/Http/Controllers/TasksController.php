@@ -55,6 +55,36 @@ class TasksController extends Controller
         return redirect()->route('frontend.task')->with('success', 'Task created successfully.');
     }
 
+
+
+
+    public function startTimer(Request $request, $taskId)
+    {
+        // Validate the request data if needed
+        $request->validate([
+            'start_time' => 'required|numeric',
+        ]);
+
+        $startTime = $request->input('start_time');
+
+        // Find the task by ID
+        $task = tasks::findOrFail($taskId);
+
+        // Update the start_time field in the tasks table
+        $task->start_time = $startTime;
+        $task->save();
+
+        return response()->json(['status' => 'success', 'message' => 'Timer data saved successfully']);
+    }
+
+
+
+
+
+
+
+
+
     /**
      * Display the specified resource.
      *

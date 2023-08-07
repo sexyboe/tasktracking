@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
+
 use App\Models\project;
 use App\Models\tasks;
 use Illuminate\Http\Request;
@@ -16,35 +18,20 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function createTask1(Request $request)
-    {
-        $request->validate([
-            'taskName' => 'required|string|max:255',
-            'descriptions' => 'nullable|string|max:255',
-            'project_id' => 'required',
-        ]);
 
-        // Create and save the task with start time
-        $task = tasks::create([
-            'user_id' => auth()->id(),
-            'project_id' => $request->project_id,
-            'taskName' => $request->taskName,
-            'descriptions' => $request->descriptions,
-            /* 'start_time' => Carbon::now(), */
-        ]);
-
-        return redirect()->back()->with('success', 'Task created successfully.');
-    }
 
     public function createTask(Request $request)
     {
         // Validate the form data
-        $validatedData = $request->validate([
-            'taskname' => 'required|max:255',
-            'description' => 'required',
-            'project_id' => 'required',
-        ]);
-        tasks::create([
+        $validatedData = $request->validate(
+            [
+                'taskname' => 'required|max:255',
+                'description' => 'required',
+                'project_id' => 'required',
+            ]
+        );
+
+        $task = tasks::create([
             'taskname' => $validatedData['taskname'],
             'description' => $validatedData['description'],
             'user_id' => $request->user_id,
@@ -52,7 +39,14 @@ class ProjectController extends Controller
         ]);
 
 
-        return redirect()->back()->with('success', 'Task created successfully.');
+        if ($task) {
+            return redirect()->back()->with('success', 'Task created successfully.');
+        } else {
+            Session::flash('taskname', $request->input('taskName'));
+            Session::flash('description', $request->input('description'));
+            Session::flash('dueDate', $request->input('dueDate'));
+            return redirect()->back()->withInput()->withErrors(['errors' => 'Invalid credentials. Please try again.']);
+        }
     }
 
 

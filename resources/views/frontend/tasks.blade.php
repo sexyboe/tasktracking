@@ -281,7 +281,8 @@
                         <p class="form-title">Add a new Project</p>
                         <div class="input-container">
                             <label for="duaDate"> Project name</label>
-                            <input type="name" name="projectName" placeholder="Enter Project Name">
+                            <input type="name" name="projectName" placeholder="Enter Project Name"
+                                value="{{ old('projectName') }}">
                         </div>
                         <div class="input-container">
                             <label for="duaDate">Due Date</label>
@@ -291,7 +292,8 @@
                         </div>
                         <div class="input-container">
                             <label for="duaDate">Descriptions</label><br>
-                            <textarea name="descriptions" id="" placeholder="Enter Details" cols="39" rows="5"></textarea>
+                            <textarea name="description" value="{{ old('description') }}" id="" placeholder="Enter Details" cols="39"
+                                rows="5"></textarea>
 
                         </div>
                         <button type="submit" class="submit">
@@ -369,10 +371,14 @@
                         @foreach ($tasks as $task)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $task->taskName }}</td>
+                                <td>{{ $task->taskname }}</td>
                                 <td>{{ $task->project->projectName }}</td>
                                 <td>{{ $task->created_at->format('Y-m-d') }}</td>
 
+
+                                <td>
+                                    <button class="timerButton" data-task-id="{{ $task->id }}">Start Timer</button>
+                                </td>
 
                                 {{--  <td><a href="{{ route('vprojects', ['project_id' => $project->id]) }}">View</a>
                                     <!-- Add other table cells for project data -->
@@ -401,6 +407,49 @@
                 setTimeout(function() {
                     document.getElementById('flash-message').style.display = 'none';
                 }, 3000); // 5000 milliseconds = 5 seconds
+
+
+
+                // timer
+                const startButton = document.querySelectorAll('.timerButton');
+
+                function startTimer(taskId) {
+                    const startTime = Math.floor(Date.now() / 1000);
+
+                    // Send the start time to the server using AJAX
+                    fetch(`/start-timer/${taskId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                            body: JSON.stringify({
+                                start_time: startTime,
+                            }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Timer data saved successfully:', data);
+                        })
+                        .catch(error => {
+                            console.error('Error saving timer data:', error);
+                        });
+                }
+
+                function initTimers() {
+                    startButton.forEach(button => {
+                        const taskId = button.getAttribute('data-task-id');
+
+                        button.addEventListener('click', function() {
+                            startTimer(taskId);
+                            this.style.display = 'none'; // Hide the "Start Timer" button after clicking
+                        });
+                    });
+                }
+
+                initTimers();
+
+                // timer
             </script>
 
 
