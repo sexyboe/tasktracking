@@ -61,10 +61,10 @@ Route::middleware('custom_auth')->group(function () {
     Route::post('/createTask1', [ProjectController::class, 'createTask1'])->name('createTask1');
     Route::post('/createTask', [ProjectController::class, 'createTask'])->name('createTask');
     Route::get('/vprojects/{project_id}', [ProjectController::class, 'viewProject'])->name('vprojects');
-    Route::post('/start-timer/{taskId}', 'TimerController@startTimer');
+    Route::get('/editprojects/{id}', [ProjectController::class, 'editProject'])->name('editprojects');
+    Route::put('/updateProjects/{id}', [ProjectController::class, 'updateProjects'])->name('updateProjects');
 
-    Route::post('/start-timer/{taskId}', [TasksController::class, 'startTimer'])->name('startTime');
-    Route::post('/stop-timer/{taskId}', [TasksController::class, 'stopTimer'])->name('stopTime');
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('deleteprojects');
 });
 
 

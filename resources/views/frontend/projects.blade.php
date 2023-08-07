@@ -363,6 +363,7 @@
                                 <th>Created At</th>
                                 <th>Due Date</th>
                                 <th>View</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -374,8 +375,25 @@
                                     <td>{{ $project->created_at->format('Y-m-d') }}</td>
 
                                     <td>{{ $project->dueDate }}</td>
-                                    <td><a href="{{ route('vprojects', ['project_id' => $project->id]) }}">View</a>
-                                        <!-- Add other table cells for project data -->
+                                    <td><a href="{{ route('vprojects', ['project_id' => $project->id]) }}">View</a></td>
+                                    <td>
+                                        <p>
+
+                                            <a href="{{ route('editprojects', ['id' => $project->id]) }}">Edit</a>
+
+                                        <form method="POST"
+                                            action="{{ route('deleteprojects', ['project' => $project->id]) }}">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <!-- Add other form fields as needed -->
+
+                                            <button type="submit">Delete Project</button>
+                                        </form>
+                                        </p>
+                                    </td>
+
+                                    <!-- Add other table cells for project data -->
                                 </tr>
                             @endforeach
                         </tbody>

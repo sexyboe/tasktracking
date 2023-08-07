@@ -20,6 +20,51 @@ class ProjectController extends Controller
 
 
 
+    public function deleteProjects(Request $request, $project_id)
+    {
+        $project = Project::findOrFail($project_id);
+        $project->delete();
+        return redirect()->route('projects')->with('success', 'Projects deleted successfully');
+    }
+    public function updateProjects(Request $request, $project_id)
+    {
+        // Validate the request data if needed
+        $validatedData = $request->validate([
+            'projectName' => 'required|string|max:255',
+            'descriptions' => 'required|string|max:230',
+            'dueDate' => 'required|date|after_or_equal:today',
+            // Add other validation rules as needed
+        ]);
+
+        $projects = project::findOrFail($project_id);
+
+        $projects->update([
+            'projectName' => $validatedData['projectName'],
+            'descriptions' => $validatedData['descriptions'],
+            'dueDate' => $validatedData['dueDate'],
+            'user_id' => $request->user_id,
+
+        ]);
+
+        $search = '';
+        if ($projects) {
+            return redirect()->route('projects')->with('success', 'project Updated Succesfully');
+            // return view('frontend.projects', compact('search', 'projects'))->with('success', 'Project Updated.');
+        } else {
+            Session::flash('taskName', $request->input('taskName'));
+            Session::flash('descriptions', $request->input('descriptions'));
+            Session::flash('dueDate', $request->input('dueDate'));
+            return redirect()->back()->withInput()->withErrors(['errors' => 'Invalid credentials. Please try again.']);
+        }
+    }
+
+    public function editProject(Request $request, $id)
+    {
+        $projects = Project::findOrFail($id);
+
+        return view('frontend.updateProject', compact('projects'));
+    }
+
     public function createTask(Request $request)
     {
         // Validate the form data
@@ -157,8 +202,12 @@ class ProjectController extends Controller
      * @param  \App\Models\project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(project $project)
+    public function destroy($projects)
     {
-        //
+        $project = project::findOrFail($projects);
+
+        // Delete the project
+        $project->delete();
+        return redirect()->route('projects')->with('success', 'project Deleted Succesfully');
     }
 }
