@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 use App\Models\project;
 use App\Models\tasks;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,7 @@ class frontendController extends Controller
             })
             ->paginate(5);
 
-
-        return view('frontend.tasks', compact('tasks', 'search'));
+        $savedTimestamp = Session::get('savedTimestamp');
+        return view('frontend.tasks', compact('tasks', 'search', 'savedTimestamp'));
     }
 }

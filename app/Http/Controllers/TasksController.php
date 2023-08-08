@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\tasks;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 class TasksController extends Controller
 {
@@ -23,6 +25,33 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function startCountdown(Request $request, $id)
+    {
+        $task = tasks::findOrFail($id); // Find the task by its ID
+
+        $time = now();
+
+        $task->update([
+            'start_time' => $time,
+        ]);
+        if ($request->ajax()) {
+            $message = 'Start time updated successfully';
+            return response()->json(['message' => $message]);
+        }
+    }
+
+
+    /*  public function stopCountdown()
+    {
+        Session::forget('savedTimestamp');
+
+        return redirect()->route('');
+    } */
+
+
+
     public function create()
     {
         //
@@ -58,24 +87,7 @@ class TasksController extends Controller
 
 
 
-    public function startTimer(Request $request, $taskId)
-    {
-        // Validate the request data if needed
-        $request->validate([
-            'start_time' => 'required|numeric',
-        ]);
 
-        $startTime = $request->input('start_time');
-
-        // Find the task by ID
-        $task = tasks::findOrFail($taskId);
-
-        // Update the start_time field in the tasks table
-        $task->start_time = $startTime;
-        $task->save();
-
-        return response()->json(['status' => 'success', 'message' => 'Timer data saved successfully']);
-    }
 
 
 

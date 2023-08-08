@@ -64,6 +64,8 @@ Route::middleware('custom_auth')->group(function () {
     Route::get('/editprojects/{id}', [ProjectController::class, 'editProject'])->name('editprojects');
     Route::put('/updateProjects/{id}', [ProjectController::class, 'updateProjects'])->name('updateProjects');
 
+    Route::post('/start-time/{id}', [TasksController::class, 'startCountdown'])->name('start.time');
+
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('deleteprojects');
 });
 

@@ -2,11 +2,12 @@
 
 
 @section('content')
+
     <div class="right-section">
 
         <div class="top">
 
-            <span>Projects</span>
+            <span>Projects / Tasks</span>
             <div class="top-right">
                 <a href="{{ route('profile') }}">
 
@@ -31,6 +32,8 @@
                 {{ session('success') }}
             </div>
         @endif
+        <div id="notification-container" class="alert alert-success" style="display: none;"></div>
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -284,12 +287,7 @@
                             <input type="name" name="projectName" placeholder="Enter Project Name"
                                 value="{{ old('projectName') }}">
                         </div>
-                        <div class="input-container">
-                            <label for="duaDate">Due Date</label>
-                            <input type="date" name="dueDate" placeholder="Enter due date">
-                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-                        </div>
                         <div class="input-container">
                             <label for="duaDate">Descriptions</label><br>
                             <textarea name="description" value="{{ old('description') }}" id="" placeholder="Enter Details" cols="39"
@@ -313,9 +311,9 @@
                 <input type="text" name="search" value="{{ $search }}" placeholder="Search task">
                 <button type="submit"><ion-icon name="search-outline"></ion-icon></button>
             </form>
-            <div class="create">
+            {{--   <div class="create">
                 <button onclick="openModal()" class="open">Create New Task</button>
-            </div>
+            </div> --}}
 
         </div>
 
@@ -376,14 +374,15 @@
                                 {{-- <td>{{ $task->project ? $task->project->projectName : 'No Project' }}</td> --}}
                                 <td>{{ $task->created_at->format('Y-m-d') }}</td>
 
-
                                 <td>
-                                    <button class="timerButton" data-task-id="{{ $task->id }}">Start Timer</button>
-                                </td>
+                                    <form class="start-time-form" action="{{ route('start.time', ['id' => $task->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit" class="start-time-button">Start Time</button>
+                                    </form>
 
-                                {{--  <td><a href="{{ route('vprojects', ['project_id' => $project->id]) }}">View</a>
-                                    <!-- Add other table cells for project data -->
-                            </tr> --}}
+
+                                </td>
                         @endforeach
                     </tbody>
                 </table>
@@ -411,11 +410,62 @@
 
 
 
-                // timer
 
-                // timer
+                /*    $(document).ready(function() {
+                       $(".start-time-form").submit(function(event) {
+                           event.preventDefault();
+
+                           var form = $(this);
+
+                           $.ajax({
+                               url: form.attr("action"),
+                               type: "POST",
+                               data: form.serialize(),
+                               dataType: "json", // Ensure this is set to JSON
+                               success: function(response) {
+                                   console.log(response.message);
+
+                                   var messageContainer = form.closest('td').find('.message-container');
+                                   messageContainer.css('display', 'block');
+                                   messageContainer.html(response.message);
+                               },
+                               error: function(xhr) {
+                                   console.error("Error: " + xhr.responseText);
+                               }
+                           });
+                       });
+                   }); */
+
+
+                $(document).ready(function() {
+                    $(".start-time-form").submit(function(event) {
+                        event.preventDefault();
+
+                        var form = $(this);
+
+                        $.ajax({
+                            url: form.attr("action"),
+                            type: "POST",
+                            data: form.serialize(),
+                            dataType: "json", // Ensure this is set to JSON
+                            success: function(response) {
+                                console.log(response.message);
+
+                                var notificationContainer = $('#notification-container');
+                                notificationContainer.html(response.message).slideDown();
+
+                                // Hide the notification after a delay (e.g., 5 seconds)
+                                setTimeout(function() {
+                                    notificationContainer.slideUp();
+                                }, 3000);
+                            },
+                            error: function(xhr) {
+                                console.error("Error: " + xhr.responseText);
+                            }
+                        });
+                    });
+                });
             </script>
-
 
         </div>
 
