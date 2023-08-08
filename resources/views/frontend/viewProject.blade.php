@@ -6,7 +6,7 @@
 
             <div class="top">
 
-                <span>Projects</span>
+                <span>Projects / View</span>
                 <div class="top-right">
                     <a href="{{ route('profile') }}">
 
@@ -97,7 +97,8 @@
                                 <p class="form-title">Add Task</p>
                                 <div class="input-container">
                                     <label for="taskName"> Task Name</label>
-                                    <input type="text" name="taskname" placeholder="Enter your Task" value="{{old('taskname')}}">
+                                    <input type="text" name="taskname" placeholder="Enter your Task"
+                                        value="{{ old('taskname') }}">
                                 </div>
                                 <div class="input-container">
                                     <input type="hidden" name="user_id" value="{{ auth()->id() }}">
@@ -105,7 +106,7 @@
                                 </div>
                                 <div class="input-container">
                                     <label for="descriptions">Descriptions</label><br>
-                                    <textarea name="description" placeholder="Enter Details" cols="39" rows="5"></textarea>
+                                    <textarea name="description" placeholder="Enter Details" cols="39" rows="5">{{ old('description') }}</textarea>
 
                                 </div>
                                 <button type="submit" class="submit">

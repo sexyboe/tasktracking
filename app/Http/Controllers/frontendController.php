@@ -44,12 +44,16 @@ class frontendController extends Controller
         $search = $request->input('search', '');
 
         $user_id = Auth::id();
+        /*  $tasks = tasks::with('project')->get();
 
+        dd($tasks->project->projectName); */
         $tasks = tasks::where('user_id', $user_id)
             ->when($search, function ($query) use ($search) {
                 $query->where('taskname', 'like', '%' . $search . '%');
             })
             ->paginate(5);
+
+
         return view('frontend.tasks', compact('tasks', 'search'));
     }
 }

@@ -372,7 +372,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $task->taskname }}</td>
-                                <td>{{ $task->project->projectName }}</td>
+
+                                {{-- <td>{{ $task->project ? $task->project->projectName : 'No Project' }}</td> --}}
                                 <td>{{ $task->created_at->format('Y-m-d') }}</td>
 
 
@@ -411,43 +412,6 @@
 
 
                 // timer
-                const startButton = document.querySelectorAll('.timerButton');
-
-                function startTimer(taskId) {
-                    const startTime = Math.floor(Date.now() / 1000);
-
-                    // Send the start time to the server using AJAX
-                    fetch(`/start-timer/${taskId}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            },
-                            body: JSON.stringify({
-                                start_time: startTime,
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Timer data saved successfully:', data);
-                        })
-                        .catch(error => {
-                            console.error('Error saving timer data:', error);
-                        });
-                }
-
-                function initTimers() {
-                    startButton.forEach(button => {
-                        const taskId = button.getAttribute('data-task-id');
-
-                        button.addEventListener('click', function() {
-                            startTimer(taskId);
-                            this.style.display = 'none'; // Hide the "Start Timer" button after clicking
-                        });
-                    });
-                }
-
-                initTimers();
 
                 // timer
             </script>

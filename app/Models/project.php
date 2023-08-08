@@ -23,10 +23,10 @@ class project extends Model
 
     public function tasks()
     {
-        return $this->hasMany(tasks::class, 'project_id', 'id');
+        return $this->hasMany(Task::class);
     }
 
-  /*   public function tasks()
+    /*   public function tasks()
     {
         return $this->hasMany(Task::class);
     } */

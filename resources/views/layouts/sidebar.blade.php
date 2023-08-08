@@ -59,9 +59,12 @@
                 </div>
                 <div class="analyze pt-4 pb-3 border-bottom">
                     <span class="light-text"> Analyze</span>
-                    <div class="tools d-flex gap-1">
-                        <ion-icon name="folder-outline"></ion-icon>
-                        <span class="none">Projects</span>
+
+                    <div class="tools">
+                        <a href="{{ route('tasks') }}" class="d-flex gap-1">
+                            <ion-icon name="folder-outline"></ion-icon>
+                            <span class="none">Tasks</span>
+                        </a>
                     </div>
                     <div class="tools">
                         <a href="{{ route('profile') }}" class="d-flex gap-1">

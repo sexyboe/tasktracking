@@ -32,7 +32,7 @@
                 </div>
             @endif
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" id="alert">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -40,6 +40,8 @@
                     </ul>
                 </div>
             @endif
+
+
 
 
             {{-- modal and forms --}}
@@ -338,8 +340,12 @@
                             th,
                             td {
                                 padding: 15px;
+                                text-align: start;
                             }
 
+                            th:nth-child(5) {
+                                text-align: center
+                            }
 
                             th {
                                 background-color: #3C3D42;
@@ -352,7 +358,7 @@
 
                             td {
                                 font-size: 1rem;
-                                font-family: ;
+
                             }
                         </style>
                         <thead>
@@ -362,7 +368,7 @@
                                 <!-- Add other table headers as needed -->
                                 <th>Created At</th>
                                 <th>Due Date</th>
-                                <th>View</th>
+
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -375,22 +381,22 @@
                                     <td>{{ $project->created_at->format('Y-m-d') }}</td>
 
                                     <td>{{ $project->dueDate }}</td>
-                                    <td><a href="{{ route('vprojects', ['project_id' => $project->id]) }}">View</a></td>
-                                    <td>
-                                        <p>
 
+                                    <td>
+                                        <div class="tableLinks">
+                                            <a href="{{ route('vprojects', ['project_id' => $project->id]) }}">View</a>
                                             <a href="{{ route('editprojects', ['id' => $project->id]) }}">Edit</a>
 
-                                        <form method="POST"
-                                            action="{{ route('deleteprojects', ['project' => $project->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
+                                            <form method="POST"
+                                                action="{{ route('deleteprojects', ['project' => $project->id]) }}">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            <!-- Add other form fields as needed -->
+                                                <!-- Add other form fields as needed -->
 
-                                            <button type="submit">Delete Project</button>
-                                        </form>
-                                        </p>
+                                                <button type="submit">Delete </button>
+                                            </form>
+                                        </div>
                                     </td>
 
                                     <!-- Add other table cells for project data -->
@@ -401,7 +407,46 @@
                 @else
                     <p>No projects found. Please create a project.</p>
                 @endif
+                <style>
+                    a {
+                        color: black;
+                        text-decoration: none;
+                    }
 
+
+
+                    td .tableLinks {
+
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+
+                        justify-content: space-between;
+                    }
+
+                    .tableLinks a:hover {
+                        color: #F6F8E2;
+                    }
+
+                    .tableLinks a {
+                        background-color: #3C3D42;
+                        padding: 0.1rem 0.8rem;
+                        color: #9CCD62;
+
+
+                    }
+
+                    .tableLinks button:hover {
+                        color: #F6F8E2;
+                    }
+
+                    .tableLinks button {
+                        padding: 0.1rem 0.3rem;
+                        border: none;
+                        background-color: #3C3D42;
+                        color: #9CCD62;
+                    }
+                </style>
 
                 <script>
                     // JavaScript functions to handle the modal
@@ -419,6 +464,10 @@
                     setTimeout(function() {
                         document.getElementById('flash-message').style.display = 'none';
                     }, 3000); // 5000 milliseconds = 5 seconds
+
+                    setTimeout(function() {
+                        document.getElementById('alert').style.display = 'none';
+                    }, 9000); // 5000 milliseconds = 5 seconds
                 </script>
 
 

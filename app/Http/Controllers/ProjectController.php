@@ -30,7 +30,7 @@ class ProjectController extends Controller
     {
         // Validate the request data if needed
         $validatedData = $request->validate([
-            'projectName' => 'required|string|max:255',
+            'projectName' => 'required|string|max:255|unique:projects',
             'descriptions' => 'required|string|max:230',
             'dueDate' => 'required|date|after_or_equal:today',
             // Add other validation rules as needed
@@ -70,7 +70,7 @@ class ProjectController extends Controller
         // Validate the form data
         $validatedData = $request->validate(
             [
-                'taskname' => 'required|max:255',
+                'taskname' => 'required|max:255|unique:tasks',
                 'description' => 'required',
                 'project_id' => 'required',
             ]
@@ -89,7 +89,7 @@ class ProjectController extends Controller
         } else {
             Session::flash('taskname', $request->input('taskName'));
             Session::flash('description', $request->input('description'));
-            Session::flash('dueDate', $request->input('dueDate'));
+
             return redirect()->back()->withInput()->withErrors(['errors' => 'Invalid credentials. Please try again.']);
         }
     }
@@ -103,7 +103,7 @@ class ProjectController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'projectName' => 'required|string|max:255',
+            'projectName' => 'required|string|max:255|unique:projects', // Add 'unique' rule here
             'dueDate' => 'required|date|after_or_equal:today',
             'descriptions' => 'required|string|max:255',
         ], [
@@ -111,6 +111,7 @@ class ProjectController extends Controller
             'projectName.required' => 'The project name is required.',
             'projectName.string' => 'The project name must be a string.',
             'projectName.max' => 'The project name may not be greater than :max characters.',
+            'projectName.unique' => 'The project name is already exist.', // Custom message for uniqueness
             'dueDate.required' => 'The due date is required.',
             'dueDate.date' => 'The due date must be a valid date.',
             'dueDate.after_or_equal' => 'The due date must be in the future or present.',
