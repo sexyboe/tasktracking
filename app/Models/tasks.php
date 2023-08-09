@@ -7,27 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class tasks extends Model
 {
+
+    protected $fillable = ['user_id', 'project_id', 'description', 'start_time', 'end_time', 'taskname'];
     use HasFactory;
-
-    protected $fillable = [
-        // Add other fillable fields if you have any
-        'user_id',
-        'project_id',
-        'taskname',
-        'description',
-        'start_time',
-        'end_time',
-        // ... other fillable fields
-    ];
-
-
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function project()
+    public function projects()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(project::class, 'project_id');
     }
 }

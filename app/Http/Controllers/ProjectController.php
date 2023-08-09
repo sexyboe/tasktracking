@@ -26,6 +26,7 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('projects')->with('success', 'Projects deleted successfully');
     }
+    
     public function updateProjects(Request $request, $project_id)
     {
         // Validate the request data if needed

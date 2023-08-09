@@ -371,7 +371,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $task->taskname }}</td>
 
-                                {{-- <td>{{ $task->project ? $task->project->projectName : 'No Project' }}</td> --}}
+                                <td>{{ $task->projects->projectName }}</td>
                                 <td>{{ $task->created_at->format('Y-m-d') }}</td>
 
                                 <td>
@@ -411,30 +411,7 @@
 
 
 
-                /*    $(document).ready(function() {
-                       $(".start-time-form").submit(function(event) {
-                           event.preventDefault();
 
-                           var form = $(this);
-
-                           $.ajax({
-                               url: form.attr("action"),
-                               type: "POST",
-                               data: form.serialize(),
-                               dataType: "json", // Ensure this is set to JSON
-                               success: function(response) {
-                                   console.log(response.message);
-
-                                   var messageContainer = form.closest('td').find('.message-container');
-                                   messageContainer.css('display', 'block');
-                                   messageContainer.html(response.message);
-                               },
-                               error: function(xhr) {
-                                   console.error("Error: " + xhr.responseText);
-                               }
-                           });
-                       });
-                   }); */
 
 
                 $(document).ready(function() {
