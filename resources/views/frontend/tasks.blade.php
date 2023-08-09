@@ -378,7 +378,19 @@
                                     <form class="start-time-form" action="{{ route('start.time', ['id' => $task->id]) }}"
                                         method="POST">
                                         @csrf
-                                        <button type="submit" class="start-time-button">Start Time</button>
+                                        <button type="submit" class="start-time-button" id="startButton">Start
+                                            Time</button>
+                                    </form>
+
+
+                                </td>
+                                <td>
+                                    <form class="start-time-form" action="{{ route('stop.time', ['id' => $task->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button id="stopButton" type="submit" class="action-button"
+                                            style="display: none;">Stop</button>
+
                                     </form>
 
 
@@ -407,13 +419,65 @@
                 setTimeout(function() {
                     document.getElementById('flash-message').style.display = 'none';
                 }, 3000); // 5000 milliseconds = 5 seconds
+                //
 
 
+                // document.addEventListener('DOMContentLoaded', function() {
+                //     var startButton = document.getElementById('startButton');
+                //     var stopButton = document.getElementById('stopButton');
+
+                //     var startform = document.getElementById('stopButton');
 
 
+                //     startButton.addEventListener('click', function() {
+                //         startButton.style.display = 'none';
+                //         stopButton.style.display = 'block';
+                //     });
+
+                //     stopButton.addEventListener('click', function() {
+                //         stopButton.style.display = 'none';
+                //         startButton.style.display = 'block';
+                //     });
+                // });
 
 
+                document.addEventListener('DOMContentLoaded', function() {
+                    var startButton = document.getElementById('startButton');
+                    var stopButton = document.getElementById('stopButton');
 
+                    // Retrieve the task started state from localStorage
+                    var isTaskStarted = localStorage.getItem('taskStarted');
+
+                    // Update button visibility based on the retrieved state
+                    if (isTaskStarted === 'true') {
+                        startButton.style.display = 'none';
+                        stopButton.style.display = 'block';
+                    } else {
+                        startButton.style.display = 'block';
+                        stopButton.style.display = 'none';
+                    }
+
+                    startButton.addEventListener('click', function() {
+                        // Update localStorage to indicate task is started
+                        localStorage.setItem('taskStarted', 'true');
+
+                        // Update button visibility
+                        startButton.style.display = 'none';
+                        stopButton.style.display = 'block';
+                    });
+
+                    stopButton.addEventListener('click', function() {
+                        // Update localStorage to indicate task is stopped
+                        localStorage.setItem('taskStarted', 'false');
+
+                        // Update button visibility
+                        stopButton.style.display = 'none';
+                        startButton.style.display = 'block';
+                    });
+                });
+
+
+                //
                 $(document).ready(function() {
                     $(".start-time-form").submit(function(event) {
                         event.preventDefault();

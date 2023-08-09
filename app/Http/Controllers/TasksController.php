@@ -35,9 +35,25 @@ class TasksController extends Controller
 
         $task->update([
             'start_time' => $time,
+            'end_time' => null, // Set end_time to null
+
         ]);
         if ($request->ajax()) {
             $message = 'Start time updated successfully';
+            return response()->json(['message' => $message]);
+        }
+    }
+    public function stopCountdown(Request $request, $id)
+    {
+        $task = tasks::findOrFail($id); // Find the task by its ID
+
+        $time = now();
+
+        $task->update([
+            'end_time' => $time,
+        ]);
+        if ($request->ajax()) {
+            $message = 'Start stopped  successfully';
             return response()->json(['message' => $message]);
         }
     }
