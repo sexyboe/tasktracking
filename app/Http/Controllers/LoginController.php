@@ -7,6 +7,10 @@ use Illuminate\Http\RedirectResponse; // Make sure to add this import
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+
+
 
 class LoginController extends Controller
 
@@ -16,6 +20,52 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('auth.login');
+    }
+
+    public function showResetView()
+    {
+        return view('auth.resetpassword');
+    }
+
+    public function editProfile()
+    {
+        $user = Auth::user();
+
+        return view('frontend.updateProfile', compact('user'));
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'newpassword' => 'required|min:8',
+            'oldpassword' => 'required|',
+
+        ]);
+
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        // Verify old password
+        if (!Hash::check($request->oldpassword, $user->password)) {
+            return redirect()->back()->withErrors(['error' => 'Incorrect old password.']);
+        }
+
+        // Update the password
+
+
+        $users = new User;
+        $user = $users->where('id', $user_id)->First();
+        $user->password = Hash::make($request->newpassword);
+
+        $user->update();
+
+        // Send notification or confirmation email
+
+        return redirect('profile')->with('success', 'Password has been reset successfully.');
+
+
+
+        // return redirect('profile')->with('reset', 'Password Reset Successfully');
     }
 
     // Handle the login form submission

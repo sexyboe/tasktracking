@@ -339,7 +339,7 @@
 
                             th,
                             td {
-                                padding: 15px;
+                                padding: 5px;
                                 text-align: start;
                             }
 
@@ -425,13 +425,14 @@
                     }
 
                     .tableLinks a:hover {
-                        color: #F6F8E2;
+                        color: #9CCD62;
                     }
 
                     .tableLinks a {
                         background-color: #3C3D42;
                         padding: 0.1rem 0.8rem;
-                        color: #9CCD62;
+                        color: #F6F8E2;
+
 
 
                     }
@@ -444,7 +445,7 @@
                         padding: 0.1rem 0.3rem;
                         border: none;
                         background-color: #3C3D42;
-                        color: #9CCD62;
+                        color: #ed7575;
                     }
                 </style>
 

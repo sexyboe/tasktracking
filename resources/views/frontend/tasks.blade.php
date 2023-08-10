@@ -337,7 +337,7 @@
 
                         th,
                         td {
-                            padding: 15px;
+                            padding: 5px;
                         }
 
 
@@ -378,8 +378,11 @@
                                     <form class="start-time-form" action="{{ route('start.time', ['id' => $task->id]) }}"
                                         method="POST">
                                         @csrf
-                                        <button type="submit" class="start-time-button" id="startButton">Start
+                                        <button type="submit" class="start-time-button" id="startButton">
+
+                                            Start
                                             Time</button>
+
                                     </form>
 
 
@@ -393,7 +396,33 @@
 
                                     </form>
 
+                                    <style>
+                                        .start-time-button {
+                                            margin-right: 10px;
+                                            background-color: rgb(75, 176, 99);
+                                            color: white;
+                                            padding: 8px 19px;
+                                            display: flex;
+                                            align-items: center;
+                                            border-radius: 10px;
+                                            border: none;
+                                            gap: 10px;
+                                            transition: all 0.2s;
+                                        }
 
+                                        .action-button {
+                                            margin-right: 10px;
+                                            background-color: rgb(176, 75, 90);
+                                            color: white;
+                                            padding: 8px 19px;
+                                            display: flex;
+                                            align-items: center;
+                                            border-radius: 10px;
+                                            border: none;
+                                            gap: 10px;
+                                            transition: all 0.2s;
+                                        }
+                                    </style>
                                 </td>
                         @endforeach
                     </tbody>
@@ -420,26 +449,6 @@
                     document.getElementById('flash-message').style.display = 'none';
                 }, 3000); // 5000 milliseconds = 5 seconds
                 //
-
-
-                // document.addEventListener('DOMContentLoaded', function() {
-                //     var startButton = document.getElementById('startButton');
-                //     var stopButton = document.getElementById('stopButton');
-
-                //     var startform = document.getElementById('stopButton');
-
-
-                //     startButton.addEventListener('click', function() {
-                //         startButton.style.display = 'none';
-                //         stopButton.style.display = 'block';
-                //     });
-
-                //     stopButton.addEventListener('click', function() {
-                //         stopButton.style.display = 'none';
-                //         startButton.style.display = 'block';
-                //     });
-                // });
-
 
                 document.addEventListener('DOMContentLoaded', function() {
                     var startButton = document.getElementById('startButton');

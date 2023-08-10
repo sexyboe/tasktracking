@@ -57,11 +57,15 @@ Route::middleware('custom_auth')->group(function () {
 
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/reset', [LoginController::class, 'showResetView'])->name('reset');
+    Route::post('/resetpassword', [LoginController::class, 'resetPassword'])->name('resetpassword');
     Route::post('/createProject', [ProjectController::class, 'create'])->name('createProject');
     Route::post('/createTask1', [ProjectController::class, 'createTask1'])->name('createTask1');
     Route::post('/createTask', [ProjectController::class, 'createTask'])->name('createTask');
     Route::get('/vprojects/{project_id}', [ProjectController::class, 'viewProject'])->name('vprojects');
     Route::get('/editprojects/{id}', [ProjectController::class, 'editProject'])->name('editprojects');
+    Route::get('/editProfile', [LoginController::class, 'editProfile'])->name('editProfile');
+    Route::put('/updateProfile', [LoginController::class, 'updateProfile'])->name('updateProfile');
     Route::put('/updateProjects/{id}', [ProjectController::class, 'updateProjects'])->name('updateProjects');
 
     Route::post('/start-time/{id}', [TasksController::class, 'startCountdown'])->name('start.time');

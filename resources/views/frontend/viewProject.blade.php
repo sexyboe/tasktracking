@@ -132,7 +132,7 @@
 
                             th,
                             td {
-                                padding: 15px;
+                                padding: 5px;
                             }
 
 
@@ -147,7 +147,7 @@
 
                             td {
                                 font-size: 1rem;
-                                font-family: ;
+                                border-bottom: 0.2px solid rgb(0, 0, 0);
                             }
                         </style>
                         <thead>
@@ -185,6 +185,10 @@
         </div>
 
         <style>
+            .tasks-list {
+                padding-top: 1px;
+            }
+
             .card-section button:hover {
                 background-color: #9CCD62;
                 box-shadow: 4px 2px 5px rgb(89, 87, 87)
@@ -235,10 +239,10 @@
                 width: 100%;
                 background: #3C3D42;
                 transition: 1s ease-in-out;
-                clip-path: polygon(30px 0%, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0% 30px);
-                border-top-right-radius: 20px;
-                border-bottom-left-radius: 20px;
                 display: flex;
+                border-end-start-radius: 0;
+                border-end-end-radius: 0;
+
                 flex-direction: row;
                 justify-content: space-around;
             }
