@@ -52,7 +52,7 @@
                     <div class="input-container">
                         <label for="projectName"> User Name : </label>
                         <input type="text
-                        " name="projectName" placeholder="Enter your Project"
+                        " name="name" placeholder="Enter your Project"
                             value="{{ old('name', $user->name) }}">
                     </div>
 

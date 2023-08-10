@@ -7,12 +7,12 @@
 
 
         <h4 class="profile_heading"> <span>Home/</span> Profile</h4>
+        @if (session('success'))
+            <div class="alert alert-success " id="flash-message">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="profile">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
 
             <div class="card">
                 <div class="card__img">
@@ -156,15 +156,39 @@
                 <div class="card__subtitle"> Email : {{ Auth::user()->email }}</div>
                 <div class="card__subtitle"> Total Projects : {{ Auth::user()->projects->count() }}</div>
 
-                <div class="card__wrapper">
 
-                    <button class="card__btn"><a href="{{ route('editProfile') }}"> Edit</a> </button>
+                <div class="editLinks">
+
+                    <a href="{{ route('editProfile') }}"> Edit</a>
+
+                    <a href="{{ route('reset') }}"> Reset Password</a>
                 </div>
-                <a href="{{ route('reset') }}"> Reset Password</a>
             </div>
         </div>
 
         <style>
+            .editLinks {
+                padding: 1rem
+            }
+
+            .editLinks a {
+                text-decoration: none;
+                padding: 0.2rem 0.6rem;
+                background-color: #010000;
+                color: white;
+                border-radius: 3px;
+
+            }
+
+            .editLinks a:hover {
+                text-decoration: none;
+                padding: 0.2rem 0.6rem;
+                background-color: #8c8888;
+                color: rgb(204, 198, 198);
+
+
+            }
+
             .profile_heading {
                 position: relative;
                 padding: 2rem 0 1rem 4rem;

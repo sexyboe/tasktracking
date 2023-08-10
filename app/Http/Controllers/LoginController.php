@@ -33,6 +33,28 @@ class LoginController extends Controller
 
         return view('frontend.updateProfile', compact('user'));
     }
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|',
+            'email' => 'required|',
+
+        ]);
+
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        $users = new User;
+        $user = $users->where('id', $user_id)->First();
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->update();
+
+        // Send notification or confirmation email
+
+        return redirect('profile')->with('success', 'Profile Updated .');
+    }
 
     public function resetPassword(Request $request)
     {
@@ -62,10 +84,6 @@ class LoginController extends Controller
         // Send notification or confirmation email
 
         return redirect('profile')->with('success', 'Password has been reset successfully.');
-
-
-
-        // return redirect('profile')->with('reset', 'Password Reset Successfully');
     }
 
     // Handle the login form submission
