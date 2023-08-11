@@ -185,8 +185,6 @@
                 padding: 0.2rem 0.6rem;
                 background-color: #8c8888;
                 color: rgb(204, 198, 198);
-
-
             }
 
             .profile_heading {

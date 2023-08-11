@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Login</title>
+    <title>Reset Password</title>
 </head>
 
 <body>
@@ -81,49 +81,38 @@
             text-decoration: underline;
         }
     </style>
-
+    @if ($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card-body">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}
             </div>
         @endif
-        @if ($errors->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
+        
         <div class="container">
-            <h1>Login</h1>
+            <h1>Reset Password</h1>
 
-            <form method="POST" action="{{ route('login') }}" class="form">
+            <form method="POST" action="{{ route('password.email') }}" class="form">
                 @csrf
-                <p class="form-title">Sign in to your account</p>
+                <p class="form-title"></p>
                 <div class="input-container">
-                    <input type="email" name="email" placeholder="Enter email" value="{{ old('email') }}">
-                    <span>
-                    </span>
-                </div>
-                <div class="input-container">
-                    <input type="password" name="password" placeholder="Enter password">
+                    <input type="email" name="email" placeholder="Enter Your Email">
                 </div>
                 <button type="submit" class="submit">
-                    Sign in
+                    Send Password Reset Link
                 </button>
 
                 <p class="signup-link">
-                    No account ?
-                    <a href="{{ route('register') }}"> Register</a>
-
-                </p>
-                <p class="signup-link">
-                    Forgot Password ?
-                    <a href="{{ route('password.request') }}"> Register</a>
+                    Go Back
+                    <a href="{{ route('profile') }}"> Back</a>
 
                 </p>
             </form>

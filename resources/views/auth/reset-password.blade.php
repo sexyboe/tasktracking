@@ -94,16 +94,20 @@
     <div class="container">
         <h1>Reset Password</h1>
 
-        <form method="POST" action="{{ route('resetpassword') }}" class="form">
+        <form method="POST" action="{{ route('password.update') }}"class="form">
             @csrf
             <p class="form-title"></p>
             <div class="input-container">
-                <input type="password" name="oldpassword" placeholder="Enter Old Password" value="{{ old('email') }}">
-                <span>
-                </span>
+
+                <input type="hidden" name="token" value="{{ $token }}">
+                <input type="hidden" name="email" value="{{ $email }}">
+
             </div>
             <div class="input-container">
-                <input type="password" name="newpassword" placeholder="Enter New Password">
+                <input type="password" name="password" placeholder="Enter New Password">
+            </div>
+            <div class="input-container">
+                <input type="password" name="password_confirmation" placeholder="Re-Enter Password">
             </div>
             <button type="submit" class="submit">
                 Sign in

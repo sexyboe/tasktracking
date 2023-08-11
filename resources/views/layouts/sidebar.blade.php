@@ -1,6 +1,67 @@
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 <section>
     <!-- whole -->
+
+    <div class="lists">
+        <ul>
+
+            <li>
+                <a href="{{ route('tasks') }}">
+                    <ion-icon name="chevron-back-sharp"></ion-icon>
+                    Tasks
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('dashboard') }}">
+                    <ion-icon name="chevron-back-sharp"></ion-icon>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('projects') }}">
+                    <ion-icon name="chevron-back-sharp"></ion-icon>
+                    Projects
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('profile') }}">
+                    <ion-icon name="chevron-back-sharp"></ion-icon>
+                    Profile
+                </a>
+            </li>
+            <li>
+
+                <a id="openModalBtn">
+                    Logout
+                    <ion-icon name="chevron-back-sharp"></ion-icon>
+
+                </a>
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+
+                        <h2>Realy Want to Logout??</h2>
+                        <span>
+
+                            <form action="{{ route('logout') }}" method="POST" class="logout">
+                                @csrf
+                                <button type="submit" name="lg_btn">Logout</button>
+                            </form>
+
+                            <button id="closeModalBtn">Cancel</button>
+                        </span>
+                    </div>
+
+
+
+
+
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+
     <div class="whole">
 
         <!-- left -->
@@ -17,23 +78,6 @@
                 <ion-icon id="menu-icon" name="chevron-back-sharp"></ion-icon>
             </div>
 
-            <div class="lists">
-                <ul>
-                    <li>
-                        <a href="">
-                            <ion-icon name="chevron-back-sharp"></ion-icon>
-                            <div class="tooltiptext"> Pous</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <ion-icon name="chevron-back-sharp"></ion-icon>
-                            <div class="tooltiptext"> Pous</div>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
 
             <div class="tools-c">
                 <div class="analyze pt-4    pb-3 gap-2 border-bottom">

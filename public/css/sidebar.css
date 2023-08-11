@@ -184,6 +184,9 @@ body {
 .sides:hover .tooltiptext {
     visibility: visible;
 }
+.lists a:hover .tooltiptext {
+    visibility: visible;
+}
 
 .right-container {
     width: 100%;
@@ -314,6 +317,42 @@ body {
 }
 /* button */
 
+/* lsts */
+
+.lists {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    z-index: 22;
+    height: 100%;
+    background-color: rgb(203, 177, 177);
+}
+
+.lists ul {
+    list-style: none;
+    padding: 1rem;
+}
+.lists ul li {
+    box-sizing: border-box;
+    list-style: none;
+
+}
+.lists ul li:hover a {
+    /* Scale the list item on hover */
+    font-size: 1.1rem;
+   
+    background-color: rgb(128, 126, 126);
+}
+.lists ul li a {
+    padding: 1rem;
+
+    text-decoration: none;
+    color: black;
+    display: flex; /* Center the icon and text vertically */
+    align-items: center;
+}
+
+/* lsts */
 /* medai querry */
 
 @media (max-width: 1051px) {
