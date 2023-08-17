@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomAuthMiddleware
 {
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = null)
     {
         if (!Auth::check()) {
             return redirect()->route('login');

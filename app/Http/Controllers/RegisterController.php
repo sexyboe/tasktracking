@@ -30,11 +30,13 @@ class RegisterController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|regex:/^\d{10}$/|unique:users', // Adjust the regex pattern as needed
             'password' => 'required|min:8',
         ], [
             'email.unique' => 'This email is already registered.',
+            'phone.regex' => 'Invalid phone number format.', // Custom validation message for regex rule
         ]);
+
 
         // Create a new user
         User::create([
@@ -46,6 +48,8 @@ class RegisterController extends Controller
 
         // Redirect to the login page with a success message
         // return redirect()->route('login')->with('success', 'Registration successful. You can now log in.');
-        return redirect()->route('dashboard')->with('success', 'Registration successful. You can now log in.');
+
+
+        return redirect()->route('dashboard')->with('success', 'Registration successful. You are now logged in.');
     }
 }

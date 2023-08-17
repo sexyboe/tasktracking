@@ -2,7 +2,6 @@
 
 
 @section('content')
-
     <div class="right-section">
 
         <div class="top">
@@ -279,19 +278,32 @@
             <div class="modal-content1">
                 <div class="form-container">
 
-                    <form method="POST" action="{{ route('createProject') }}" class="form">
+                    <form method="POST" action="{{ route('createTask1') }}" class="form">
                         @csrf
-                        <p class="form-title">Add a new Project</p>
+                        <p class="form-title">Add Task</p>
                         <div class="input-container">
-                            <label for="duaDate"> Project name</label>
-                            <input type="name" name="projectName" placeholder="Enter Project Name"
-                                value="{{ old('projectName') }}">
+                            <label for="taskName"> Task Name</label>
+                            <input type="text" name="taskname" placeholder="Enter your Task"
+                                value="{{ old('taskname') }}">
                         </div>
-
                         <div class="input-container">
-                            <label for="duaDate">Descriptions</label><br>
-                            <textarea name="description" value="{{ old('description') }}" id="" placeholder="Enter Details" cols="39"
-                                rows="5"></textarea>
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+
+                        </div>
+                        <label for="specificProjectSelect" class="form-label">Select Project</label>
+                        <select class="form-select" id="specificProjectSelect" name="project_id">
+                            @if (count($projects) === 0)
+                                <option value="0">No project</option>
+                            @else
+                                @foreach ($projects as $project)
+                                    <option value="{{ $project->id }}">{{ $project->projectName }}</option>
+                                @endforeach
+                            @endif
+                            <!-- Add more options as needed -->
+                        </select>
+                        <div class="input-container">
+                            <label for="descriptions">Descriptions</label><br>
+                            <textarea name="description" placeholder="Enter Details" cols="39" rows="2">{{ old('description') }}</textarea>
 
                         </div>
                         <button type="submit" class="submit">
@@ -311,13 +323,13 @@
                 <input type="text" name="search" value="{{ $search }}" placeholder="Search task">
                 <button type="submit"><ion-icon name="search-outline"></ion-icon></button>
             </form>
-            {{--   <div class="create">
-                <button onclick="openModal()" class="open">Create New Task</button>
-            </div> --}}
+
+            <div class="create">
+                <button onclick="openModal()" class="open">Create New Project</button>
+            </div>
 
         </div>
 
-        <hr>
         <div class="table">
 
 
@@ -374,6 +386,7 @@
                                 <td>{{ $task->projects->projectName }}</td>
                                 <td>{{ $task->created_at->format('Y-m-d') }}</td>
 
+
                                 <td>
                                     <form class="start-time-form" action="{{ route('start.time', ['id' => $task->id]) }}"
                                         method="POST">
@@ -384,8 +397,9 @@
                                             Time</button>
 
                                     </form>
-
-
+                                    <p id="stopwatch-wrapper" style="display: none;">
+                                        Timer: <span id="stopwatch-time">00:00:00</span>
+                                    </p>
                                 </td>
                                 <td>
                                     <form class="start-time-form" action="{{ route('stop.time', ['id' => $task->id]) }}"

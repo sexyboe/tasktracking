@@ -122,15 +122,16 @@
                             <span class="none">Project</span>
                         </a>
                     </div>
-                    <div class="tools ">
-                        <a id="openModalBtn" class="d-flex gap-1">
+
+                    <div class="tools">
+                        <a id="openModalBtn1" class="d-flex gap-1">
                             <ion-icon name="log-out-outline"></ion-icon>
+
                             <span class="none">Logout</span>
                         </a>
 
-                        <div id="modal" class="modal">
+                        <div id="modal1" class="modal">
                             <div class="modal-content">
-
                                 <h2>Realy Want to Logout??</h2>
                                 <span>
 
@@ -139,7 +140,11 @@
                                         <button type="submit" name="lg_btn">Logout</button>
                                     </form>
 
-                                    <button id="closeModalBtn">Cancel</button>
+                                    <button id="closeModalBtn1"
+                                        style="background-color: rgb(201, 39, 39)">Cancel</button>
+                                </span>
+                                <!-- Add your settings form or content here -->
+
                                 </span>
                             </div>
                         </div>
@@ -157,21 +162,28 @@
         </div>
 
         <script>
-            const openModalBtn = document.getElementById("openModalBtn");
-            const closeModalBtn = document.getElementById("closeModalBtn");
-            const modal = document.getElementById("modal");
+            var modal1 = document.getElementById("modal1");
 
-            openModalBtn.addEventListener("click", () => {
-                modal.style.display = "block";
+            // Get the button that opens the new modal
+            var openModalBtn1 = document.getElementById("openModalBtn1");
+
+            // Get the button that closes the new modal
+            var closeModalBtn1 = document.getElementById("closeModalBtn1");
+
+            // When the user clicks the button, open the new modal
+            openModalBtn1.addEventListener("click", function() {
+                modal1.style.display = "block";
             });
 
-            closeModalBtn.addEventListener("click", () => {
-                modal.style.display = "none";
+            // When the user clicks the close button, close the new modal
+            closeModalBtn1.addEventListener("click", function() {
+                modal1.style.display = "none";
             });
 
-            window.addEventListener("click", (event) => {
-                if (event.target === modal) {
-                    modal.style.display = "none";
+            // When the user clicks anywhere outside of the new modal, close it
+            window.addEventListener("click", function(event) {
+                if (event.target === modal1) {
+                    modal1.style.display = "none";
                 }
             });
         </script>

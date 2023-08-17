@@ -157,7 +157,7 @@
                                 <!-- Add other table headers as needed -->
                                 <th>Created At</th>
                                 <th>Due Date</th>
-                                <th>View</th>
+                               
                             </tr>
                         </thead>
                         <tbody>

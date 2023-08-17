@@ -42,7 +42,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 
 // Handle the registration form submission
-Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
@@ -54,8 +54,9 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'
 
 Route::middleware('custom_auth')->group(function () {
     // Add your protected routes here
+
+    Route::get('/dashboard', [FrontendController::class, 'index'])->name('dashboard');
     Route::get('/ok', [frontendController::class, 'ok'])->name('ok');
-    Route::get('/dashboard', [frontendController::class, 'index'])->name('dashboard');
     Route::get('/projects', [frontendController::class, 'showProject'])->name('projects');
     Route::get('/tasks', [frontendController::class, 'showTask'])->name('tasks');
     Route::get('/profile', [frontendController::class, 'profilepage'])->name('profile');

@@ -26,12 +26,12 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('projects')->with('success', 'Projects deleted successfully');
     }
-    
+
     public function updateProjects(Request $request, $project_id)
     {
         // Validate the request data if needed
         $validatedData = $request->validate([
-            'projectName' => 'required|string|max:255|unique:projects',
+            'projectName' => 'required|string|max:255|',
             'descriptions' => 'required|string|max:230',
             'dueDate' => 'required|date|after_or_equal:today',
             // Add other validation rules as needed
@@ -66,6 +66,34 @@ class ProjectController extends Controller
         return view('frontend.updateProject', compact('projects'));
     }
 
+    public function createTask1(Request $request)
+    {
+        // Validate the form data
+        $validatedData = $request->validate(
+            [
+                'taskname' => 'required|max:255|unique:tasks',
+                'description' => 'required',
+                'project_id' => 'required',
+            ]
+        );
+
+        $task = tasks::create([
+            'taskname' => $validatedData['taskname'],
+            'description' => $validatedData['description'],
+            'user_id' => $request->user_id,
+            'project_id' => $request->project_id,
+        ]);
+
+
+        if ($task) {
+            return redirect()->back()->with('success', 'Task created successfully.');
+        } else {
+            Session::flash('taskname', $request->input('taskname'));
+            Session::flash('description', $request->input('description'));
+
+            return redirect()->back()->withInput()->withErrors(['errors' => 'Invalid credentials. Please try again.']);
+        }
+    }
     public function createTask(Request $request)
     {
         // Validate the form data
@@ -104,7 +132,7 @@ class ProjectController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'projectName' => 'required|string|max:255|unique:projects', // Add 'unique' rule here
+            'projectName' => 'required|string|max:255|:projects', // Add 'unique' rule here
             'dueDate' => 'required|date|after_or_equal:today',
             'descriptions' => 'required|string|max:255',
         ], [

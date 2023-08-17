@@ -11,13 +11,13 @@ use Illuminate\Http\Request;
 
 class frontendController extends Controller
 {
-    public function ok()
-    {
-        return view('ok');
-    }
+
     public function index()
     {
-        return view('frontend.dashboard');
+        $user_id = Auth::user()->id;
+        $projects = project::where('user_id', $user_id)->get();
+        $tasks = tasks::where('user_id', $user_id)->get();
+        return view('frontend.dashboard', compact('projects', 'tasks'));
     }
     public function profilepage()
     {
@@ -45,12 +45,10 @@ class frontendController extends Controller
         $search = $request->input('search', '');
 
         $user_id = Auth::id();
-        $task = tasks::with('projects')->find(1);
+        $projects = project::where('user_id', $user_id)->get();
 
 
-        /*  $tasks = tasks::with('project')->get();
 
-        dd($tasks->project->projectName); */
         $tasks = Tasks::where('user_id', $user_id)
             ->when($search, function ($query) use ($search) {
                 $query->where('taskname', 'like', '%' . $search . '%');
@@ -58,6 +56,6 @@ class frontendController extends Controller
             ->paginate(5);
 
         $savedTimestamp = Session::get('savedTimestamp');
-        return view('frontend.tasks', compact('tasks', 'search', 'savedTimestamp'));
+        return view('frontend.tasks', compact('tasks', 'search', 'savedTimestamp', 'projects'));
     }
 }
